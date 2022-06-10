@@ -1,9 +1,10 @@
 import { initializeApp } from "firebase/app";
 import {
   getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
   signInWithPopup,
   GoogleAuthProvider,
-  createUserWithEmailAndPassword,
 } from "firebase/auth";
 import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
 
@@ -31,8 +32,6 @@ providerGoogle.setCustomParameters({ prompt: "select_account" });
 
 export const signInWithPopupGoogle = () =>
   signInWithPopup(auth, providerGoogle);
-
-//
 
 export const createUserDocumentFromAuth = async (userAuth, vars = {}) => {
   if (!userAuth) return;
@@ -62,4 +61,10 @@ export const createAuthUserWithEmailAndPassword = async (email, password) => {
   if (!email || !password) return;
 
   return await createUserWithEmailAndPassword(auth, email, password);
+};
+
+export const signInAuthUserWithEmailAndPassword = async (email, password) => {
+  if (!email || !password) return;
+
+  return await signInWithEmailAndPassword(auth, email, password);
 };
